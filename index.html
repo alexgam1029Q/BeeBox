@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BeeBox, simulación de monitoreo inteligente de colmenas." />
+    <meta name="theme-color" content="#1e684e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="BeeBox" />
+    <title>BeeBox · Monitoreo de colmena</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/BeeBox%20Logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark"><img src="assets/BeeBox%20Logo.png" alt="BeeBox" width="34" height="34" /></div>
+          <div><strong>BeeBox</strong><span>Smart apiary</span></div>
+        </div>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a class="nav-item active" href="#inicio"><span class="nav-icon">⌂</span>Resumen</a>
+          <a class="nav-item" href="#alertas"><span class="nav-icon">◉</span>Alertas <span class="nav-count" id="navAlertCount">3</span></a>
+          <a class="nav-item" href="#historial"><span class="nav-icon">↗</span>Historial</a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="apiary-card">
+            <span class="mini-label">COLMENA ACTIVA</span>
+            <strong>Colmena #01</strong>
+            <span class="online"><i></i> Simulación en curso</span>
+          </div>
+          <span class="demo-note">Todos los datos son ficticios<br />y forman parte de esta demo.</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar" id="inicio">
+          <div class="mobile-brand"><img src="assets/BeeBox%20Logo.png" alt="" width="25" height="25" /><strong>BeeBox</strong></div>
+          <div class="breadcrumb"><span>Apiario Norte</span><b>/</b><strong>Resumen de colmena</strong></div>
+          <div class="topbar-actions">
+            <button class="icon-button" type="button" aria-label="Notificaciones" title="Notificaciones" onclick="document.querySelector('#alertas').scrollIntoView({behavior:'smooth'})">♧<span class="notification-dot"></span></button>
+            <div class="avatar">AM</div>
+          </div>
+        </header>
+
+        <div class="content-wrap">
+          <section class="welcome-row">
+            <div>
+              <p class="eyebrow">SÁBADO, 05 SEPTIEMBRE 2026</p>
+              <h1>Buenos días, Alex <span>✦</span></h1>
+              <p class="subheading">Aquí tienes una lectura del pulso de tu colmena.</p>
+            </div>
+            <div class="last-sync"><span class="sync-dot"></span><div><small>ÚLTIMA ACTUALIZACIÓN</small><strong id="lastUpdate">--:--:--</strong></div></div>
+          </section>
+
+          <section class="hero-grid">
+            <article class="colony-status panel">
+              <div class="panel-topline"><span class="section-kicker">ESTADO DE LA COLONIA</span><span class="live-label"><i></i> EN VIVO</span></div>
+              <div class="status-main"><div class="status-orb"><span>🐝</span><i></i></div><div><h2 id="colonyState">Normal</h2><p id="colonyMessage">La colmena se encuentra estable y activa.</p></div></div>
+              <div class="status-footer"><span>Confianza del sistema</span><strong id="confidence">96%</strong><div class="confidence-bar"><i id="confidenceBar"></i></div></div>
+            </article>
+            <article class="active-alert panel">
+              <div class="panel-topline"><span class="section-kicker">CENTRO DE ALERTAS</span><span class="alert-bell">♧</span></div>
+              <div class="alert-number"><strong id="activeAlerts">3</strong><span>alertas<br />activas</span></div>
+              <p>Revisa las novedades de tu colmena para mantenerla en equilibrio.</p>
+              <a href="#alertas" class="text-link">Ver todas las alertas <span>→</span></a>
+            </article>
+          </section>
+
+          <section class="metrics-section">
+            <div class="section-heading"><div><span class="section-kicker">LECTURA AMBIENTAL</span><h2>Salud de la colmena</h2></div><span class="refresh-note">Actualización automática <i></i></span></div>
+            <div class="metrics-grid">
+              <article class="metric-card temperature"><div class="metric-heading"><span class="metric-icon">♨</span><span>Temperatura</span><button type="button" aria-label="Información de temperatura">i</button></div><div class="metric-value"><strong id="temperatureValue">34.8</strong><span>°C</span></div><div class="metric-trend up"><span>↗</span> +0.3° <small>vs. hace 1 h</small></div><div class="metric-sparkline"><svg viewBox="0 0 220 42" preserveAspectRatio="none"><path d="M0 31 C18 30 23 20 39 23 S61 36 77 28 S96 12 112 20 S135 29 149 17 S170 19 187 9 S208 11 220 4" /></svg></div></article>
+              <article class="metric-card humidity"><div class="metric-heading"><span class="metric-icon">◌</span><span>Humedad</span><button type="button" aria-label="Información de humedad">i</button></div><div class="metric-value"><strong id="humidityValue">61</strong><span>%</span></div><div class="metric-trend down"><span>↘</span> -2% <small>vs. hace 1 h</small></div><div class="metric-sparkline"><svg viewBox="0 0 220 42" preserveAspectRatio="none"><path d="M0 12 C17 15 22 9 38 17 S62 24 77 16 S99 31 114 23 S140 26 153 19 S175 33 191 24 S209 30 220 26" /></svg></div></article>
+              <article class="metric-card weight"><div class="metric-heading"><span class="metric-icon">⌁</span><span>Peso de la colmena</span><button type="button" aria-label="Información del peso">i</button></div><div class="metric-value"><strong id="weightValue">42.6</strong><span>kg</span></div><div class="metric-trend up"><span>↗</span> +0.8 kg <small>vs. hace 1 h</small></div><div class="metric-sparkline"><svg viewBox="0 0 220 42" preserveAspectRatio="none"><path d="M0 33 C15 30 28 32 43 28 S63 31 78 25 S99 28 115 21 S136 22 151 17 S176 20 188 12 S205 14 220 7" /></svg></div></article>
+            </div>
+          </section>
+
+          <section class="lower-grid">
+            <div class="history-panel panel" id="historial"><div class="section-heading"><div><span class="section-kicker">ÚLTIMAS 12 HORAS</span><h2>Historial de sensores</h2></div><button class="select-button" type="button">Todas las métricas <span>⌄</span></button></div><div class="chart-legend"><span><i class="legend-temp"></i> Temperatura</span><span><i class="legend-humidity"></i> Humedad</span><span><i class="legend-weight"></i> Peso</span></div><div class="chart-wrap"><div class="y-axis"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div><svg class="history-chart" viewBox="0 0 700 220" preserveAspectRatio="none" aria-label="Gráfico del historial de sensores"><g class="grid-lines"><path d="M0 10 H700 M0 60 H700 M0 110 H700 M0 160 H700 M0 210 H700" /></g><path class="chart-line line-temp" d="M0 129 C30 124 45 137 68 126 S100 102 124 110 S151 96 177 111 S205 121 230 94 S255 67 279 84 S312 104 333 91 S365 88 388 72 S421 82 446 58 S477 72 500 54 S530 71 554 49 S580 57 603 38 S634 55 660 42 S684 34 700 28" /><path class="chart-line line-humidity" d="M0 74 C30 68 45 87 68 82 S103 104 124 92 S154 99 177 83 S211 75 230 91 S257 106 279 95 S307 105 333 89 S363 80 388 96 S421 107 446 90 S475 95 500 83 S530 89 554 76 S581 87 603 72 S635 86 660 66 S684 74 700 62" /><path class="chart-line line-weight" d="M0 170 C28 171 45 164 68 169 S105 159 124 162 S156 151 177 155 S207 147 230 151 S256 141 279 146 S309 136 333 140 S363 130 388 134 S418 123 446 128 S475 117 500 122 S530 109 554 114 S579 103 603 108 S634 96 660 100 S684 90 700 93" /></svg><div class="x-axis"><span>18:00</span><span>21:00</span><span>00:00</span><span>03:00</span><span>06:00</span><span>09:00</span><span>Ahora</span></div></div></div>
+            <div class="activity-panel panel"><div class="section-heading"><div><span class="section-kicker">ACTIVIDAD RECIENTE</span><h2>Últimos eventos</h2></div><a class="text-link" href="#alertas">Ver todo →</a></div><div class="activity-list" id="activityList"></div></div>
+          </section>
+
+          <section class="alerts-section panel" id="alertas"><div class="section-heading alerts-heading"><div><span class="section-kicker">CENTRO DE NOTIFICACIONES</span><h2>Alertas</h2></div><div class="alert-tools"><select id="alertFilter" aria-label="Filtrar alertas"><option value="all">Todos los tipos</option><option value="temperature">Temperatura</option><option value="humidity">Humedad</option><option value="weight">Peso</option><option value="colony">Colonia</option></select><button class="secondary-button" id="readAll" type="button">✓ Marcar todas como leídas</button></div></div><div id="alertsList" class="alerts-list"></div></section>
+          <footer><span>🐝 BeeBox · Monitoreo inteligente de colmena</span><span>Demo de presentación · Datos ficticios</span></footer>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"><span>✓</span><div><strong id="toastTitle">Alerta simulada</strong><p id="toastMessage">La alerta fue agregada al centro de notificaciones.</p></div><button type="button" id="closeToast" aria-label="Cerrar">×</button></div>
+    <script src="app.js"></script>
+    <script>
+      if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+        navigator.serviceWorker.register('./sw.js');
+      }
+    </script>
+  </body>
+</html>
