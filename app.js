@@ -19,6 +19,16 @@ const levelLabels = { info: 'Información', attention: 'Atención', critical: 'C
 const levelClasses = { info: 'badge-info', attention: 'badge-attention', critical: 'badge-critical' };
 const nowTime = () => new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 
+function updateTodayDate() {
+  const dateValue = new Date().toLocaleDateString('es-ES', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+  $('todayDate').textContent = dateValue.toUpperCase();
+}
+
 function renderAlerts() {
   const visible = alerts.filter((alert) => currentFilter === 'all' || alert.type === currentFilter);
   $('alertsList').innerHTML = visible.length ? visible.map((alert) => `
@@ -45,6 +55,7 @@ function updateMetrics() {
   $('humidityValue').textContent = metricState.humidity;
   $('weightValue').textContent = metricState.weight.toFixed(1);
   $('lastUpdate').textContent = new Date().toLocaleTimeString('es-ES');
+  updateTodayDate();
 }
 function showToast(title, message) {
   $('toastTitle').textContent = title;
@@ -71,6 +82,8 @@ function removeAlert(id) { alerts = alerts.filter((item) => item.id !== id); ren
 $('alertFilter').addEventListener('change', (event) => { currentFilter = event.target.value; renderAlerts(); });
 $('readAll').addEventListener('click', () => { alerts.forEach((alert) => { alert.read = true; }); renderAlerts(); showToast('Alertas actualizadas', 'Todas las alertas fueron marcadas como leídas.'); });
 $('closeToast').addEventListener('click', () => $('toast').classList.remove('show'));
+updateTodayDate();
 renderAlerts(); renderActivity(); updateMetrics();
 setInterval(updateMetrics, 7000);
 setInterval(() => { $('lastUpdate').textContent = new Date().toLocaleTimeString('es-ES'); }, 1000);
+setInterval(updateTodayDate, 60000);
